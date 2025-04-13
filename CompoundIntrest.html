@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Intrest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+    </script>
+
+    <style>
+        .calsection{
+            margin-left: 60px;
+            margin-right: 60px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px;
+        }
+    </style>
+
+    <script>
+        function calculate(operation)
+        {
+            //access the refrence and value
+            let principal=document.getElementById("principal").value;
+            let rate=document.getElementById("rate").value;
+            let time=document.getElementById("time").value;
+            //check values
+            if(principal=="")
+            {
+                alert("please enter principal amount!");
+                return;
+            }
+            if(rate=="")
+            {
+                alert("please enter rate!")
+                return;
+            }
+            if(time=="")
+            {
+                alert("please enter time!");
+                return;
+            }
+            //convert string to float
+            let p=parseFloat(principal);
+            let r=parseFloat(rate);
+            let t=parseFloat(time);
+
+            let result;
+            switch(operation)
+            {
+                case 'yearly':
+                    result=(p*Math.pow(1+r/100,t))-p;
+                    break;
+                case 'halfyearly':
+                    result=(p*Math.pow(1+(r/2)/100,2*t))-p;
+                    break;
+                case 'quarterly':
+                    result=(p*Math.pow(1+(r/4)/100,4*t))-p;
+                break;
+            }
+            //put the result to label
+            document.getElementById("resultLabel").innerHTML=result;
+            document.getElementById("optrLbl").innerHTML=operation;
+        }
+        function reset()
+        {
+           let p=document.getElementById("principal");
+           let r=document.getElementById("rate");
+           let t=document.getElementById("time");
+            p.value="";
+            r.value="";
+            t.value="";
+            document.getElementById("resultLabel").innerHTML=0;
+            document.getElementById("optrLbl").innerHTML="";
+        }
+    </script>
+</head>
+<body class="calsection">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h1>Compound Intrest</h1>
+                <hr/>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3"><input type="number" class="form-control" placeholder="Enter principal amount" id="principal"/></div>
+            <div class="col-sm-2"><input type="number" class="form-control" placeholder="Enter rate" id="rate"/></div>
+            <div class="col-sm-2"><input type="number" class="form-control" placeholder="Enter time(year)" id="time"/></div>
+            <div class="col-sm-3"></div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2"><button class="btn btn-primary" onclick="calculate('yearly')">Yearly</button></div>
+            <div class="col-sm-2"><button class="btn btn-primary" onclick="calculate('halfyearly');">Half Yearly</button></div>
+            <div class="col-sm-2"><button class="btn btn-primary" onclick="calculate('quarterly');">Quarterly</button></div>
+            <div class="col-sm-3"></div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2"><button class="btn btn-danger" onclick="reset();">Reset</button></div>
+            <div class="col-sm-4"><h4>Result: <span id="resultLabel">0</span></h4></div>
+            <div class="col-sm-2"><label id="optrLbl"></label></div>
+        </div>
+    </div>
+</body>
+</html>
